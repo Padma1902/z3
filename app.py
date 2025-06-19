@@ -216,6 +216,30 @@ def edit_animal(id):
     animal = c.fetchone()
     conn.close()
     return render_template('edit_animal.html', animal=animal)
+@app.route('/edit_booking/<int:booking_id>', methods=['GET', 'POST'])
+def edit_booking(booking_id):
+    conn = sqlite3.connect('zoo.db')
+    cursor = conn.cursor()
+
+    if request.method == 'POST':
+        visitor = request.form['visitor']
+        booking_type = request.form['type']
+        price = request.form['price']
+
+        cursor.execute("""
+            UPDATE bookings
+            SET visitor = ?, type = ?, price = ?
+            WHERE id = ?
+        """, (visitor, booking_type, price, booking_id))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('view_bookings'))
+
+    else:  # GET request
+        cursor.execute("SELECT * FROM bookings WHERE id = ?", (booking_id,))
+        record = cursor.fetchone()
+        conn.close()
+        return render_template('edit_booking.html', record=record)
 
 
 
