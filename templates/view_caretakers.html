@@ -31,6 +31,15 @@
       cursor: pointer;
       border-radius: 4px;
     }
+    .edit-btn {
+      background-color: orange;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-left: 5px;
+    }
   </style>
 </head>
 <body>
@@ -48,6 +57,9 @@
       <td>
         <form method="POST" action="/delete_caretaker/{{ row[0] }}">
           <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this caretaker?')">Delete</button>
+        </form>
+        <form method="GET" action="/edit_caretaker/{{ row[0] }}">
+          <button type="submit" class="edit-btn">Edit</button>
         </form>
       </td>
     </tr>
