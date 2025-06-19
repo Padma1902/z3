@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login / Register</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('/static/zoo.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+    }
+
+    .form-box {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 280px;
+      text-align: center;
+    }
+
+    .form-box h2 {
+      color: #4b0082;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      padding: 12px 10px;
+      border-radius: 6px;
+      border: 1px solid #aaa;
+      width: 85%;
+      font-size: 14px;
+      margin: 10px 0;
+    }
+
+    .submit-btn {
+      background-color: #ffa500;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 2px 2px 6px #666;
+      color: black;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .submit-btn:hover {
+      background-color: #ff8c00;
+    }
+
+    .toggle-link {
+      color: #000;
+      font-size: 14px;
+      margin-top: 10px;
+      display: block;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .toggle-link:hover {
+      text-decoration: none;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+  <script>
+    function showForm(type) {
+      document.getElementById('login-form').classList.toggle('hidden', type !== 'login');
+      document.getElementById('register-form').classList.toggle('hidden', type !== 'register');
+    }
+
+    window.onload = function () {
+      const urlParams = new URLSearchParams(window.location.search);
+      const registered = urlParams.get('registered');
+      if (registered === 'true') {
+        showForm('login'); // show login after successful registration
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <div class="form-box">
+    <div id="login-form">
+      <h2>Login</h2>
+      <form method="POST" action="/login">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit" class="submit-btn">Login</button>
+      </form>
+      <span class="toggle-link" onclick="showForm('register')">New user? Register here</span>
+    </div>
+
+    <div id="register-form" class="hidden">
+      <h2>Register</h2>
+      <form method="POST" action="/register">
+        <input type="text" name="username" placeholder="New Username" required>
+        <input type="password" name="password" placeholder="New Password" required>
+        <button type="submit" class="submit-btn">Register</button>
+      </form>
+      <span class="toggle-link" onclick="showForm('login')">Already registered? Login here</span>
+    </div>
+  </div>
+
+</body>
+</html>

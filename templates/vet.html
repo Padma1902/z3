@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vet Checkups</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('/static/zoo.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+      position: relative;
+    }
+
+    .form-box {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 280px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .form-box h2 {
+      color: #4b0082;
+      margin: 0;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"], input[type="time"] {
+      padding: 12px 10px;
+      border-radius: 6px;
+      border: 1px solid #aaa;
+      width: 85%;
+      font-size: 14px;
+      margin: 10px 0;
+    }
+
+    .submit-btn {
+      background-color: #ffa500;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 2px 2px 6px #666;
+      color: black;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .submit-btn:hover {
+      background-color: #ff8c00;
+    }
+
+    .nav-btn {
+      position: absolute;
+      bottom: 20px;
+      background-color: #ffa500;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 2px 2px 6px #666;
+      color: black;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .nav-btn:hover {
+      background-color: #ff8c00;
+    }
+
+    .nav-left {
+      left: 20px;
+    }
+
+    .nav-right {
+      right: 20px;
+    }
+
+    .top-left-link {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: white;
+      text-decoration: underline;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .top-left-link:hover {
+      color: #ddd;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top-left plain text link -->
+  <a href="/view_vet" class="top-left-link">View Vet Checkup Records</a>
+
+  <div class="form-box">
+    <h2>Vet Checkups</h2>
+    <form method="POST">
+      <input name="doctor" placeholder="Doctor Name" type="text" required>
+      <input name="phone" placeholder="Phone Number" type="text" required>
+      <input type="time" name="checkup_time" required>
+      <button type="submit" class="submit-btn">Submit</button>
+    </form>
+  </div>
+
+  <a href="/caretaker" class="nav-btn nav-left">← Previous</a>
+  <a href="/booking" class="nav-btn nav-right">Next →</a>
+
+</body>
+</html>
