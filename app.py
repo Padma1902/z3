@@ -191,6 +191,32 @@ def delete_booking(booking_id):
     conn.commit()
     conn.close()
     return redirect('/view_bookings')
+@app.route('/edit_animal/<int:id>', methods=['GET', 'POST'])
+def edit_animal(id):
+    conn = sqlite3.connect('zoo.db')
+    c = conn.cursor()
+
+    if request.method == 'POST':
+        name = request.form['name']
+        species = request.form['species']
+        gender = request.form['gender']
+        caretaker = request.form['caretaker']
+        cage = request.form['cage']
+
+        c.execute('''
+            UPDATE animals 
+            SET name = ?, species = ?, gender = ?, caretaker = ?, cage = ? 
+            WHERE id = ?
+        ''', (name, species, gender, caretaker, cage, id))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('view_animals'))  # replace with your actual view route name
+
+    c.execute('SELECT * FROM animals WHERE id = ?', (id,))
+    animal = c.fetchone()
+    conn.close()
+    return render_template('edit_animal.html', animal=animal)
+
 
 
 
