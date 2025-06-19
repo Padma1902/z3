@@ -248,6 +248,25 @@ def edit_caretaker(id):
     caretaker = c.fetchone()
     conn.close()
     return render_template('edit_caretaker.html', caretaker=caretaker)
+@app.route('/edit_vet/<int:id>', methods=['GET', 'POST'])
+def edit_vet(id):
+    conn = sqlite3.connect('zoo.db')
+    c = conn.cursor()
+
+    if request.method == 'POST':
+        doctor = request.form['doctor']
+        phone = request.form['phone']
+        checkup_time = request.form['checkup_time']
+        c.execute("UPDATE vet_checkups SET doctor = ?, phone = ?, checkup_time = ? WHERE id = ?", 
+                  (doctor, phone, checkup_time, id))
+        conn.commit()
+        conn.close()
+        return redirect('/view_vet')  # your vet checkups view page
+
+    c.execute("SELECT * FROM vet_checkups WHERE id = ?", (id,))
+    record = c.fetchone()
+    conn.close()
+    return render_template('edit_vet.html', record=record)
 
 
 
