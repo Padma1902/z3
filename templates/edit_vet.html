@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Vet Checkup</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    input[type="text"], input[type="datetime-local"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Edit Vet Checkup Record</h2>
+  <form method="POST">
+    <label>Doctor:</label>
+    <input type="text" name="doctor" value="{{ record[1] }}" required>
+
+    <label>Phone:</label>
+    <input type="text" name="phone" value="{{ record[2] }}" required>
+
+    <label>Checkup Time:</label>
+    <input type="datetime-local" name="checkup_time" value="{{ record[3] }}" required>
+
+    <button type="submit">Update</button>
+  </form>
+</body>
+</html>
