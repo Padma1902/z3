@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Animal Records</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('/static/zoo.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      color: #fff;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 30px;
+      height: 100%;
+    }
+
+    .form-box {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 280px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .form-box h2 {
+      color: #4b0082;
+      margin: 0;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"], select {
+      padding: 12px 10px;
+      border-radius: 6px;
+      border: 1px solid #aaa;
+      width: 85%;
+      font-size: 14px;
+      margin: 10px 0;
+    }
+
+    .field-label {
+      width: 85%;
+      text-align: left;
+      font-weight: bold;
+      font-size: 14px;
+      margin: 5px 0 -5px 0;
+      color: black;
+    }
+
+    .radio-group {
+      display: flex;
+      justify-content: start;
+      font-size: 14px;
+      width: 85%;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      gap: 20px;
+      color: black;
+      padding-left: 5px;
+    }
+
+    .submit-btn {
+      background-color: #ffa500;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 2px 2px 6px #666;
+      color: black;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .submit-btn:hover {
+      background-color: #ff8c00;
+    }
+
+    .nav-btn {
+      position: absolute;
+      bottom: 20px;
+      background-color: #ffa500;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 2px 2px 6px #666;
+      color: black;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .nav-btn:hover {
+      background-color: #ff8c00;
+    }
+
+    .nav-left {
+      left: 20px;
+    }
+
+    .nav-right {
+      right: 20px;
+    }
+
+    .view-link {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: white;
+      text-decoration: underline;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .view-link:hover {
+      color: #ddd;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top-left View link -->
+  <a href="/view_animals" class="view-link">View Animal Records</a>
+
+  <div class="container">
+    <div class="form-box">
+      <h2>Animal Records</h2>
+      <form method="POST">
+        <input name="name" placeholder="Animal Name" type="text" required>
+
+        <div class="field-label">Species:</div>
+        <select name="species" required>
+          <option value="" disabled selected>Select Species</option>
+          <option>🦁 Panthera leo</option>
+          <option>🐘 Loxodonta africana</option>
+          <option>🐯 Panthera tigris</option>
+          <option>🦒 Giraffa camelopardalis</option>
+          <option>🦚 Pavo cristatus</option>
+          <option>🦉 Strigiformes</option>
+          <option>🐊 Crocodylus niloticu</option>
+          <option>🐍 Ophiophagus hannah</option>
+          <option>🦈 Carcharodon carcharias</option>
+          <option>🐸 Bufonidae</option>
+          <option>🐉 Anisoptera</option>
+        </select>
+
+        <div class="field-label">Age Group:</div>
+        <select name="age" required>
+          <option value="" disabled selected>Select Age Group</option>
+          <option>🐣 Baby</option>
+          <option>🐥 Juvenile</option>
+          <option>🐅 Adult</option>
+          <option>🐢 Senior</option>
+        </select>
+
+        <div class="field-label">Gender:</div>
+        <div class="radio-group">
+          <label><input type="radio" name="gender" value="Male" required> Male</label>
+          <label><input type="radio" name="gender" value="Female"> Female</label>
+        </div>
+
+        <input name="caretaker" placeholder="Caretaker Name" type="text" required>
+        <input name="cage" placeholder="Cage Number" type="text" required>
+
+        <button type="submit" class="submit-btn">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <a href="/login" class="nav-btn nav-left">← Previous</a>
+  <a href="/caretaker" class="nav-btn nav-right">Next →</a>
+
+</body>
+</html>
