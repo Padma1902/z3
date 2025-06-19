@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Booking</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f0f0f0;
+    }
+    form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 15px;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      border: none;
+      width: 100%;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>Edit Booking</h2>
+  <form method="POST">
+    <label>Visitor:</label>
+    <input type="text" name="visitor" value="{{ record[1] }}" required>
+
+    <label>Type:</label>
+    <input type="text" name="type" value="{{ record[2] }}" required>
+
+    <label>Price:</label>
+    <input type="number" name="price" value="{{ record[3] }}" required>
+
+    <button type="submit">Update Booking</button>
+  </form>
+</body>
+</html>
