@@ -30,11 +30,11 @@
       cursor: pointer;
       color: white;
     }
-    .delete-btn {
-      background-color: red;
-    }
     .edit-btn {
       background-color: green;
+    }
+    .delete-btn {
+      background-color: red;
     }
   </style>
 </head>
@@ -53,11 +53,11 @@
       <td>{{ row[4] }}</td>
       <td>{{ row[5] }}</td>
       <td>
-        <form method="POST" action="/delete_animal/{{ row[0] }}" style="display:inline;">
-          <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this record?')">Delete</button>
-        </form>
         <form method="GET" action="/edit_animal/{{ row[0] }}" style="display:inline;">
           <button type="submit" class="edit-btn">Edit</button>
+        </form>
+        <form method="POST" action="/delete_animal/{{ row[0] }}" style="display:inline;">
+          <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this record?')">Delete</button>
         </form>
       </td>
     </tr>
