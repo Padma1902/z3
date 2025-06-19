@@ -240,6 +240,15 @@ def edit_booking(booking_id):
         record = cursor.fetchone()
         conn.close()
         return render_template('edit_booking.html', record=record)
+@app.route('/edit_caretaker/<int:id>', methods=['GET'])
+def edit_caretaker(id):
+    conn = sqlite3.connect('zoo.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM caretakers WHERE id=?", (id,))
+    caretaker = c.fetchone()
+    conn.close()
+    return render_template('edit_caretaker.html', caretaker=caretaker)
+
 
 
 
