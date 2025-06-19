@@ -123,6 +123,7 @@ def booking():
         conn.commit()
         conn.close()
     return render_template('booking.html')
+
 @app.route('/view_animals')
 def view_animals():
     conn = sqlite3.connect('zoo.db')
@@ -159,6 +160,7 @@ def view_bookings():
     conn.close()
     return render_template('view_bookings.html', records=rows)
 
+# Delete Routes
 @app.route('/delete_animal/<int:animal_id>', methods=['POST'])
 def delete_animal(animal_id):
     conn = sqlite3.connect('zoo.db')
@@ -167,6 +169,7 @@ def delete_animal(animal_id):
     conn.commit()
     conn.close()
     return redirect('/view_animals')
+
 @app.route('/delete_caretaker/<int:caretaker_id>', methods=['POST'])
 def delete_caretaker(caretaker_id):
     conn = sqlite3.connect('zoo.db')
@@ -175,6 +178,7 @@ def delete_caretaker(caretaker_id):
     conn.commit()
     conn.close()
     return redirect('/view_caretakers')
+
 @app.route('/delete_vet/<int:vet_id>', methods=['POST'])
 def delete_vet(vet_id):
     conn = sqlite3.connect('zoo.db')
@@ -182,7 +186,8 @@ def delete_vet(vet_id):
     cursor.execute("DELETE FROM vet_checkups WHERE id = ?", (vet_id,))
     conn.commit()
     conn.close()
-    return redirect('/view_vets')
+    return redirect('/view_vet')
+
 @app.route('/delete_booking/<int:booking_id>', methods=['POST'])
 def delete_booking(booking_id):
     conn = sqlite3.connect('zoo.db')
@@ -191,86 +196,90 @@ def delete_booking(booking_id):
     conn.commit()
     conn.close()
     return redirect('/view_bookings')
+
+# Edit Routes
 @app.route('/edit_animal/<int:id>', methods=['GET', 'POST'])
 def edit_animal(id):
     conn = sqlite3.connect('zoo.db')
     c = conn.cursor()
-
     if request.method == 'POST':
         name = request.form['name']
         species = request.form['species']
         gender = request.form['gender']
         caretaker = request.form['caretaker']
         cage = request.form['cage']
-
         c.execute('''
             UPDATE animals 
-            SET name = ?, species = ?, gender = ?, caretaker = ?, cage = ? 
+            SET name = ?, species = ?, gender = ?, caretaker = ?, cage_number = ? 
             WHERE id = ?
         ''', (name, species, gender, caretaker, cage, id))
         conn.commit()
         conn.close()
-        return redirect(url_for('view_animals'))  # replace with your actual view route name
-
+        return redirect(url_for('view_animals'))
     c.execute('SELECT * FROM animals WHERE id = ?', (id,))
     animal = c.fetchone()
     conn.close()
     return render_template('edit_animal.html', animal=animal)
-@app.route('/edit_booking/<int:booking_id>', methods=['GET', 'POST'])
-def edit_booking(booking_id):
-    conn = sqlite3.connect('zoo.db')
-    cursor = conn.cursor()
 
-    if request.method == 'POST':
-        visitor = request.form['visitor']
-        booking_type = request.form['type']
-        price = request.form['price']
-
-        cursor.execute("""
-            UPDATE bookings
-            SET visitor = ?, type = ?, price = ?
-            WHERE id = ?
-        """, (visitor, booking_type, price, booking_id))
-        conn.commit()
-        conn.close()
-        return redirect(url_for('view_bookings'))
-
-    else:  # GET request
-        cursor.execute("SELECT * FROM bookings WHERE id = ?", (booking_id,))
-        record = cursor.fetchone()
-        conn.close()
-        return render_template('edit_booking.html', record=record)
-@app.route('/edit_caretaker/<int:id>', methods=['GET'])
+@app.route('/edit_caretaker/<int:id>', methods=['GET', 'POST'])
 def edit_caretaker(id):
     conn = sqlite3.connect('zoo.db')
     c = conn.cursor()
-    c.execute("SELECT * FROM caretakers WHERE id=?", (id,))
+    if request.method == 'POST':
+        name = request.form['name']
+        caretaker_id = request.form['caretaker_id']
+        cage = request.form['cage']
+        c.execute('''
+            UPDATE caretakers 
+            SET name = ?, caretaker_id = ?, cage_number = ? 
+            WHERE id = ?
+        ''', (name, caretaker_id, cage, id))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('view_caretakers'))
+    c.execute("SELECT * FROM caretakers WHERE id = ?", (id,))
     caretaker = c.fetchone()
     conn.close()
     return render_template('edit_caretaker.html', caretaker=caretaker)
+
 @app.route('/edit_vet/<int:id>', methods=['GET', 'POST'])
 def edit_vet(id):
     conn = sqlite3.connect('zoo.db')
     c = conn.cursor()
-
     if request.method == 'POST':
         doctor = request.form['doctor']
         phone = request.form['phone']
         checkup_time = request.form['checkup_time']
-        c.execute("UPDATE vet_checkups SET doctor = ?, phone = ?, checkup_time = ? WHERE id = ?", 
+        c.execute("UPDATE vet_checkups SET doctor_name = ?, phone = ?, checkup_time = ? WHERE id = ?", 
                   (doctor, phone, checkup_time, id))
         conn.commit()
         conn.close()
-        return redirect('/view_vet')  # your vet checkups view page
-
+        return redirect(url_for('view_vet'))
     c.execute("SELECT * FROM vet_checkups WHERE id = ?", (id,))
     record = c.fetchone()
     conn.close()
     return render_template('edit_vet.html', record=record)
 
-
-
-
+@app.route('/edit_booking/<int:booking_id>', methods=['GET', 'POST'])
+def edit_booking(booking_id):
+    conn = sqlite3.connect('zoo.db')
+    cursor = conn.cursor()
+    if request.method == 'POST':
+        visitor = request.form['visitor']
+        booking_type = request.form['type']
+        price = request.form['price']
+        cursor.execute("""
+            UPDATE bookings
+            SET visitor_name = ?, visitor_type = ?, price = ?
+            WHERE id = ?
+        """, (visitor, booking_type, price, booking_id))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('view_bookings'))
+    cursor.execute("SELECT * FROM bookings WHERE id = ?", (booking_id,))
+    record = cursor.fetchone()
+    conn.close()
+    return render_template('edit_booking.html', record=record)
 
 if __name__ == '__main__':
     init_db()
