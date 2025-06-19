@@ -1,72 +1,143 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>View Bookings</title>
+  <title>Ticket Booking</title>
+  <link rel="stylesheet" href="/static/style.css">
   <style>
     body {
+      margin: 0;
+      padding: 0;
+      background-image: url('/static/zoo.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+      position: relative;
+    }
+
+    .form-box {
+      background-color: rgba(255, 255, 255, 0.9);
       padding: 20px;
-    }
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      background-color: #f9f9f9;
-    }
-    th, td {
-      border: 1px solid #999;
-      padding: 8px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 280px;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
-    th {
-      background-color: #ddd;
+
+    .form-box h2 {
+      color: #4b0082;
+      margin: 0;
+      margin-bottom: 10px;
     }
-    form {
-      display: inline;
+
+    input[type="text"], input[type="number"] {
+      padding: 12px 10px;
+      border-radius: 6px;
+      border: 1px solid #aaa;
+      width: 85%;
+      font-size: 14px;
+      margin: 10px 0;
     }
-    .delete-btn {
-      background-color: red;
-      color: white;
+
+    .radio-group {
+      display: flex;
+      justify-content: start;
+      font-size: 14px;
+      width: 85%;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      gap: 20px;
+      color: black;
+      padding-left: 5px;
+    }
+
+    .submit-btn {
+      background-color: #ffa500;
       border: none;
-      padding: 5px 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 10px;
       cursor: pointer;
-      border-radius: 4px;
+      box-shadow: 2px 2px 6px #666;
+      color: black;
+      font-weight: bold;
+      margin-top: 10px;
     }
-    .edit-btn {
-      background-color: #4CAF50;
-      color: white;
+
+    .submit-btn:hover {
+      background-color: #ff8c00;
+    }
+
+    .nav-btn {
+      position: absolute;
+      bottom: 20px;
+      background-color: #ffa500;
       border: none;
-      padding: 5px 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 10px;
       cursor: pointer;
-      border-radius: 4px;
-      margin-right: 5px;
+      box-shadow: 2px 2px 6px #666;
+      color: black;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .nav-btn:hover {
+      background-color: #ff8c00;
+    }
+
+    .nav-left {
+      left: 20px;
+    }
+
+    .top-left-link {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: white;
+      text-decoration: underline;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .top-left-link:hover {
+      color: #ddd;
     }
   </style>
 </head>
 <body>
-  <h2>Booking Records</h2>
-  <table>
-    <tr>
-      <th>ID</th><th>Visitor</th><th>Type</th><th>Price</th><th>Actions</th>
-    </tr>
-    {% for row in records %}
-    <tr>
-      <td>{{ row[0] }}</td>
-      <td>{{ row[1] }}</td>
-      <td>{{ row[2] }}</td>
-      <td>{{ row[3] }}</td>
-      <td>
-        <!-- Edit Button -->
-        <form method="GET" action="/edit_booking/{{ row[0] }}">
-          <button type="submit" class="edit-btn">Edit</button>
-        </form>
-        
-        <!-- Delete Button -->
-        <form method="POST" action="/delete_booking/{{ row[0] }}">
-          <button type="submit" class="delete-btn" onclick="return confirm('Are you sure you want to delete this booking?')">Delete</button>
-        </form>
-      </td>
-    </tr>
-    {% endfor %}
-  </table>
+
+  <!-- Top-left plain text link -->
+  <a href="/view_bookings" class="top-left-link">View Booked Tickets</a>
+
+  <div class="form-box">
+    <h2>Ticket Booking</h2>
+    <form method="POST">
+      <input name="visitor" placeholder="Visitor Name" type="text" required>
+
+      <div class="radio-group">
+        <label><input type="radio" name="type" value="Child" required> Child</label>
+        <label><input type="radio" name="type" value="Adult"> Adult</label>
+        <label><input type="radio" name="type" value="Senior"> Senior</label>
+      </div>
+
+      <input name="price" type="number" placeholder="Price (INR)" required>
+
+      <button type="submit" class="submit-btn">Submit</button>
+    </form>
+  </div>
+
+  <a href="/vet" class="nav-btn nav-left">← Previous</a>
+
 </body>
 </html>
