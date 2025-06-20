@@ -162,13 +162,15 @@ def view_bookings():
 
 # Delete Routes
 @app.route('/delete_animal/<int:animal_id>', methods=['POST'])
-def delete_animal(animal_id):
+@app.route('/delete_animal/<int:id>', methods=['POST'])
+def delete_animal(id):
     conn = sqlite3.connect('zoo.db')
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM animals WHERE id = ?", (animal_id,))
+    c = conn.cursor()
+    c.execute("DELETE FROM animals WHERE id = ?", (id,))
     conn.commit()
     conn.close()
-    return redirect('/view_animals')
+    return redirect('/view_animals')  # Ensure this route exists
+
 
 @app.route('/delete_caretaker/<int:caretaker_id>', methods=['POST'])
 def delete_caretaker(caretaker_id):
